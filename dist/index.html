@@ -4,15 +4,15 @@
     <title>Explore AIC Collections</title>
     <link rel="stylesheet" href="/styles-6754c13bbdd846ad.css" integrity="sha384-JN6fp8L4Aq1uW1S14CjTdCaRJBYZzizYdWe1Wqi--DzQK5e9RmeosHHU_nrB_syf">
 
-<link rel="preload" href="/photogram-yew-bd529d67dca5f281_bg.wasm" as="fetch" type="application/wasm" crossorigin="anonymous" integrity="sha384-eznqQwTgHFEeVn07Co-LWls3W33wQn_Od8sAsmPnEjppQq9vhKtLtXTQlkFZ__jN">
-<link rel="modulepreload" href="/photogram-yew-bd529d67dca5f281.js" crossorigin="anonymous" integrity="sha384-9jGqwmd6zJkAkx3lb7SGeavnBE3DfFzJuLcO8PJDn5r_jim8zqADJF7mkCwXtcRs"></head>
+<link rel="preload" href="/photogram-yew-6c4d44e76e1dce2c_bg.wasm" crossorigin="anonymous" integrity="sha384-mTtq1rznP4-qSzgQDuudxrE9s1Zro5uGZNh6rRszp1zDGB892P5G2KdF3QvpuYkR" as="fetch" type="application/wasm">
+<link rel="modulepreload" href="/photogram-yew-6c4d44e76e1dce2c.js" crossorigin="anonymous" integrity="sha384-INdl68VLgtT_md2PO_NOjk_BqNKbMSmC_QhvTc4WKNi1VGAK9i7u7JtmoLq474d1"></head>
 <body>
     
 
 
 <script type="module">
-import init, * as bindings from '/photogram-yew-bd529d67dca5f281.js';
-init('/photogram-yew-bd529d67dca5f281_bg.wasm');
+import init, * as bindings from '/photogram-yew-6c4d44e76e1dce2c.js';
+init('/photogram-yew-6c4d44e76e1dce2c_bg.wasm');
 window.wasmBindings = bindings;
 
 </script><script>"use strict";
@@ -20,6 +20,7 @@ window.wasmBindings = bindings;
 (function () {
 
     const address = '{{__TRUNK_ADDRESS__}}';
+    const base = '{{__TRUNK_WS_BASE__}}';
     let protocol = '';
     protocol =
         protocol
@@ -27,7 +28,7 @@ window.wasmBindings = bindings;
             : window.location.protocol === 'https:'
                 ? 'wss'
                 : 'ws';
-    const url = protocol + '://' + address + '/_trunk/ws';
+    const url = protocol + '://' + address + base + '.well-known/trunk/ws';
 
     class Overlay {
         constructor() {
