@@ -4,24 +4,13 @@ body {
 
 .search-card {
   display: flex;
-  justify-content: center;
-
   flex-direction: row;
   flex-wrap: wrap;
   padding: 10px;
 }
 
-h3 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .individual-result {
   margin: 10px;
-  width: 300px;
-  height: 400px;
-
 }
 
 #searchBar {
@@ -55,11 +44,11 @@ h3 {
     justify-content: center;
     align-items: center;
     grid-column: 2 4;
-    grid-row: 3;
+    grid-row: 1;
     padding: 8px;
-    display: grid;
-    width: 70vw;
-    margin: 30px;
+    display: block;
+    width: 70vw
+
   }
 
 #searchResults {
@@ -109,10 +98,8 @@ h3 {
 .indie-result {
   display: block;
   border: 2px solid grey;
-  width: 300px;
-  height: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  width: 100%;
+  height: auto;
 }
 
 .indie-result:hover{
@@ -120,13 +107,7 @@ h3 {
 }
 
 .thumbnail-image {
-  width: 296px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
 }
-
-.photo-info {
-  margin: 5px;
-
-}
-
