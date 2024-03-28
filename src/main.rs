@@ -13,7 +13,7 @@ use crate::services::*;
 /// make Search Results a self-contained container
 /// format to look pretty with css
 /// remove hello world (replace with website header)
-/// 
+///
 
 
 
@@ -23,7 +23,10 @@ fn App() -> Html {
     let search_terms = use_state(|| search_terms {search_type: search_endpoint::artworks, query: "".to_string()});
     let selected_item = use_state(|| serde_json::Value::from_str("{}").unwrap());
   html!{  <>
-    <h2> {"Explore the Art Institute of Chicago's Collections!"} </h2>
+    <div id="headline-container">
+      <h2 class="page-headline"> {"Explore the Art Institute of Chicago's Collections!"} </h2>
+    </div>
+
     <div id = "container">
     <SearchBar search_type = {search_terms.search_type.clone()} query =  {search_terms.query.clone()} search_results = {search_results_handle.clone()}> </SearchBar>
     <ItemViewer item = {(*selected_item).clone()}> </ItemViewer>
@@ -47,22 +50,22 @@ pub fn SearchBar(SearchBarProps {search_type, query, search_results}: &SearchBar
 
             search_query_handle.set(option_elem.value())
         }
-        
+
     });
     let on_submit_handler = Callback::from( move |_| {
-        
+
         search(search_results_clone.clone(), search_terms {search_type: search_type_clone.clone(), query: search_query.clone().to_string()})
     });
 
     html! {
         <>
         <div id = "searchBar">
-        <input oninput = {handle_input} /> 
-        <button onclick = {
+        <input type="text" class="search-input" placeholder="What are you looking for?" oninput = {handle_input} />
+        <button type="button" class="search-button" onclick = {
             on_submit_handler
-        } > {"Search"} </button>
+        } > <i class="fa-solid fa-magnifying-glass"></i>  </button>
 </div>
-       
+
          </>
     }
 }
@@ -72,21 +75,21 @@ pub fn SearchBar(SearchBarProps {search_type, query, search_results}: &SearchBar
 #[function_component]
 pub fn SearchResults( SearchResultsProps{search_results, selected_item }: &SearchResultsProps ) -> Html {
     let data= (*search_results)["data"].as_array();
-    
+
     //let onclick = Callback::from(move |_| selected_item_id.set(item["id"].copy()));
     if let Some(unpacked_data) = data {
-        
+
         html! {
-            <> 
+            <>
             <div id = "searchResults">
             <h3> {"Search Results"} </h3>
-            <ul class = "item-list">
-            {unpacked_data.iter().map(| item| html! {<li> <IndiviudalResult item = {item.clone()} callback = {selected_item.clone()}> </IndiviudalResult>  </li> }).collect::<Html>()} 
-        </ul>
-        
+            <div class = "search-card">
+            {unpacked_data.iter().map(| item| html! {<li class="individual-result"> <IndiviudalResult item = {item.clone()} callback = {selected_item.clone()}> </IndiviudalResult>  </li> }).collect::<Html>()}
+        </div>
+
     </div>
     </>
-        
+
         }
     } else {
         html! {<> </>}
@@ -95,7 +98,7 @@ pub fn SearchResults( SearchResultsProps{search_results, selected_item }: &Searc
 
 #[function_component]
 fn IndiviudalResult(IndividualResultProps {item, callback}: &IndividualResultProps) -> Html {
-    
+
     let callback = callback.clone();
     let other_copy = item.clone();
     let item = item.clone();
@@ -106,7 +109,7 @@ fn IndiviudalResult(IndividualResultProps {item, callback}: &IndividualResultPro
     };
     let mut full_url = "".to_owned();
     if let Some(img_base_url) = (*item_handler).clone()["config"]["iiif_url"].as_str() {
-        
+
         let image_id = (*item_handler).clone()["data"]["image_id"].as_str().unwrap().to_owned();
         full_url = format!("{}/{}/full/200,/0/default.jpg",img_base_url, image_id.clone());
 
@@ -120,8 +123,8 @@ fn IndiviudalResult(IndividualResultProps {item, callback}: &IndividualResultPro
                 <>
             <div> {format!("Title: {}", other_copy.clone()["title"].as_str().unwrap_or_default())} </div>
             <div> {format!("Artist: {}", other_copy.clone()["artist"].as_str().unwrap_or_default())} </div>
-            <div> {"Thumbnail: "} <img src = {full_url} /> </div>
-         
+            <div> {"Thumbnail: "} <img class="thumbnail-image" src = {full_url} /> </div>
+
             </>
             }
         }
@@ -140,7 +143,7 @@ fn ItemViewer(ItemViewerProps {item} : &ItemViewerProps) -> Html {
     };
     let mut full_url = "".to_owned();
     if let Some(img_base_url) = (*item_handler).clone()["config"]["iiif_url"].as_str() {
-        
+
         let image_id = (*item_handler).clone()["data"]["image_id"].as_str().unwrap().to_owned();
         full_url = format!("{}/{}/full/200,/0/default.jpg",img_base_url, image_id.clone());
 
