@@ -5,13 +5,22 @@ body {
 
 .search-card {
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 10px;
 }
 
+h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .individual-result {
   margin: 10px;
+  width: 300px;
+  height: 400px;
 }
 
 #searchBar {
@@ -45,11 +54,11 @@ body {
     justify-content: center;
     align-items: center;
     grid-column: 2 4;
-    grid-row: 1;
+    grid-row: 3;
     padding: 8px;
-    display: block;
-    width: 70vw
-
+    display: grid;
+    width: 70vw;
+    margin: 30px;
   }
 
 #searchResults {
@@ -99,8 +108,10 @@ body {
 .indie-result {
   display: block;
   border: 2px solid grey;
-  width: 100%;
-  height: auto;
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 .indie-result:hover{
@@ -108,7 +119,12 @@ body {
 }
 
 .thumbnail-image {
-  width: 200px;
-  height: 200px;
+  width: 296px;
+  height: 300px;
   object-fit: cover;
+}
+
+.photo-info {
+  margin: 5px;
+
 }

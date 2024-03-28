@@ -81,10 +81,11 @@ pub fn SearchResults( SearchResultsProps{search_results, selected_item }: &Searc
 
         html! {
             <>
-            <div id = "searchResults">
             <h3> {"Search Results"} </h3>
+            <div id = "searchResults">
+
             <div class = "search-card">
-            {unpacked_data.iter().map(| item| html! {<li class="individual-result"> <IndiviudalResult item = {item.clone()} callback = {selected_item.clone()}> </IndiviudalResult>  </li> }).collect::<Html>()}
+            {unpacked_data.iter().map(| item| html! {<div class="individual-result"> <IndiviudalResult item = {item.clone()} callback = {selected_item.clone()}> </IndiviudalResult>  </div> }).collect::<Html>()}
         </div>
 
     </div>
@@ -121,9 +122,10 @@ fn IndiviudalResult(IndividualResultProps {item, callback}: &IndividualResultPro
         <div onclick = { move |_| callback.set(item.clone())}> {
             html! {
                 <>
-            <div> {format!("Title: {}", other_copy.clone()["title"].as_str().unwrap_or_default())} </div>
-            <div> {format!("Artist: {}", other_copy.clone()["artist"].as_str().unwrap_or_default())} </div>
-            <div> {"Thumbnail: "} <img class="thumbnail-image" src = {full_url} /> </div>
+            <div>  <img class="thumbnail-image" src = {full_url} /> </div>
+            <div class="photo-info"> {format!("Title: {}", other_copy.clone()["title"].as_str().unwrap_or_default())} </div>
+            <div class="photo-info"> {format!("Artist: {}", other_copy.clone()["artist"].as_str().unwrap_or_default())} </div>
+
 
             </>
             }
